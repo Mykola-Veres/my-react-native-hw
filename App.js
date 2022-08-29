@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
@@ -11,16 +11,61 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
+  Dimensions,
 } from "react-native";
 
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
+
 export default function App() {
+  const initialState = {
+    email: "",
+    password: "",
+  };
+
   const [showKeyboard, setShowKeyboard] = useState(false);
+  const [state, setState] = useState(initialState);
+  const [isReady, setIsReady] = useState(false);
+  const [dimensions, setDimensions] = useState(
+    Dimensions.get("window").width - 20 * 2
+  );
   console.log("platforma:", Platform.OS);
+
+  useEffect(() => {
+    const onChange = () => {
+      const width = Dimensions.get("window").width;
+      console.log("width", width);
+    };
+    Dimensions.addEventListener("change", onChange);
+    return () => {
+      Dimensions.removeEventListener("change", onChange);
+    };
+  }, []);
 
   const keyBoardHide = () => {
     setShowKeyboard(false);
     Keyboard.dismiss();
+    console.log("state:", state);
+    setState(initialState);
   };
+
+  const loadAppFonts = async () => {
+    await Font.loadAsync({
+      "Dancing-Regular": require("./assets/fonts/DancingScript-Medium.ttf"),
+      "Inter-Black": require("./assets/fonts/DancingScript-SemiBold.ttf"),
+    });
+  };
+
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={loadAppFonts}
+        onFinish={() => setIsReady(true)}
+        onError={console.warn}
+      />
+    );
+  }
+
   return (
     <TouchableWithoutFeedback onPress={keyBoardHide}>
       <View style={styles.container}>
@@ -33,7 +78,11 @@ export default function App() {
             behavior={Platform.OS === "ios" ? "padding" : ""}
           >
             <View
-              style={{ ...styles.form, marginBottom: showKeyboard ? 40 : 200 }}
+              style={{
+                ...styles.form,
+                marginBottom: showKeyboard ? 40 : 150,
+                width: dimensions,
+              }}
             >
               <View style={styles.header}>
                 <Text style={styles.headerTitle}>Welcom!</Text>
@@ -45,12 +94,15 @@ export default function App() {
                   style={styles.input}
                   textAlign="center"
                   // onChangeText={onChangeNumber}
-                  // value={number}
+                  value={state.email}
                   placeholder="useless placeholder"
                   keyboardType="numeric"
                   onFocus={() => {
                     setShowKeyboard(true);
                   }}
+                  onChangeText={(value) =>
+                    setState((prevState) => ({ ...prevState, email: value }))
+                  }
                 />
               </View>
               <View style={{ marginTop: 20 }}>
@@ -59,13 +111,16 @@ export default function App() {
                   style={styles.input}
                   textAlign="center"
                   // onChangeText={onChangeNumber}
-                  // value={number}
+                  value={state.password}
                   placeholder="useless placeholder"
                   keyboardType="numeric"
                   secureTextEntry={true}
                   onFocus={() => {
                     setShowKeyboard(true);
                   }}
+                  onChangeText={(value) =>
+                    setState((prevState) => ({ ...prevState, password: value }))
+                  }
                 />
               </View>
               <TouchableOpacity
@@ -92,7 +147,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     // resizeMode: "cover",
-    // alignItems: "center",
+    alignItems: "center",
   },
   input: {
     borderWidth: 1,
@@ -110,6 +165,7 @@ const styles = StyleSheet.create({
     color: "#fffafa",
     marginBottom: 10,
     fontSize: 18,
+    fontFamily: "Inter-Black",
   },
   btn: {
     backgroundColor: "#7fff00",
@@ -142,5 +198,6 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 30,
     color: "#fffafa",
+    fontFamily: "Inter-Black",
   },
 });

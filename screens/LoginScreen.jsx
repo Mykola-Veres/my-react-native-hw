@@ -84,36 +84,14 @@ export default function App() {
               <View
                 style={{
                   ...styles.form,
-                  marginBottom: showKeyboard ? 32 : 90,
+                  marginBottom: showKeyboard ? 32 : 110,
                   width: dimensions,
                 }}
               >
                 <View style={styles.header}>
-                  <Text style={styles.headerTitle}>Регистрация</Text>
+                  <Text style={styles.headerTitle}>Войти</Text>
                 </View>
-                <View style={{ marginTop: 32 }}>
-                  <TextInput
-                    style={{
-                      ...styles.input,
-                      borderColor: activeStyle ? "#FF6C00" : "transparent",
-                      backgroundColor: activeStyle ? "#FFFFFF" : "#E8E8E8",
-                    }}
-                    textAlign="center"
-                    value={state.email}
-                    placeholder="Логин"
-                    placeholderTextColor="#BDBDBD"
-                    keyboardType="numeric"
-                    onFocus={() => {
-                      setShowKeyboard(true);
-                      setActiveStyle(true);
-                    }}
-                    onChangeText={(value) =>
-                      setState((prevState) => ({ ...prevState, email: value }))
-                    }
-                    onBlur={() => setActiveStyle(false)}
-                  />
-                </View>
-                <View style={{ marginTop: 16 }}>
+                <View style={{ marginTop: 33 }}>
                   <TextInput
                     style={{
                       ...styles.input,

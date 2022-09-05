@@ -17,6 +17,7 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 
 export default function App() {
+  <script src="http://192.168.1.105:8097"></script>;
   const initialState = {
     email: "",
     password: "",

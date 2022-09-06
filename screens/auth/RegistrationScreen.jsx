@@ -13,10 +13,8 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
 } from "react-native";
-import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
 
-export default function App() {
+export default function RegistrationScreen() {
   const initialState = {
     email: "",
     password: "",
@@ -24,7 +22,6 @@ export default function App() {
 
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
-  const [isReady, setIsReady] = useState(false);
   const [dimensions, setDimensions] = useState(
     Dimensions.get("window").width - 20 * 2
   );
@@ -48,28 +45,11 @@ export default function App() {
     setState(initialState);
   };
 
-  const loadAppFonts = async () => {
-    await Font.loadAsync({
-      "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
-      "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
-    });
-  };
-
-  if (!isReady) {
-    return (
-      <AppLoading
-        startAsync={loadAppFonts}
-        onFinish={() => setIsReady(true)}
-        onError={console.warn}
-      />
-    );
-  }
-
   return (
     <TouchableWithoutFeedback onPress={keyBoardHide}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("./assets/photo-BG.jpg")}
+          source={require("../../assets/photo-BG.jpg")}
           style={styles.image}
         >
           <StatusBar style="auto" />
@@ -84,14 +64,36 @@ export default function App() {
               <View
                 style={{
                   ...styles.form,
-                  marginBottom: showKeyboard ? 32 : 110,
+                  marginBottom: showKeyboard ? 32 : 90,
                   width: dimensions,
                 }}
               >
                 <View style={styles.header}>
-                  <Text style={styles.headerTitle}>Войти</Text>
+                  <Text style={styles.headerTitle}>Регистрация</Text>
                 </View>
-                <View style={{ marginTop: 33 }}>
+                <View style={{ marginTop: 32 }}>
+                  <TextInput
+                    style={{
+                      ...styles.input,
+                      borderColor: activeStyle ? "#FF6C00" : "transparent",
+                      backgroundColor: activeStyle ? "#FFFFFF" : "#E8E8E8",
+                    }}
+                    textAlign="center"
+                    value={state.email}
+                    placeholder="Логин"
+                    placeholderTextColor="#BDBDBD"
+                    keyboardType="numeric"
+                    onFocus={() => {
+                      setShowKeyboard(true);
+                      setActiveStyle(true);
+                    }}
+                    onChangeText={(value) =>
+                      setState((prevState) => ({ ...prevState, email: value }))
+                    }
+                    onBlur={() => setActiveStyle(false)}
+                  />
+                </View>
+                <View style={{ marginTop: 16 }}>
                   <TextInput
                     style={{
                       ...styles.input,

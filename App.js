@@ -3,6 +3,7 @@ import {} from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import RegistrationScreen from "./screens/auth/RegistrationScreen";
+import LoginScreen from "./screens/auth/LoginScreen";
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
@@ -27,6 +28,7 @@ export default function App() {
   return (
     <>
       <RegistrationScreen></RegistrationScreen>
+      {/* <LoginScreen></LoginScreen> */}
     </>
   );
 }

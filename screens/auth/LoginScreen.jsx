@@ -49,7 +49,7 @@ export default function LoginScreen() {
     <TouchableWithoutFeedback onPress={keyBoardHide}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("./assets/photo-BG.jpg")}
+          source={require("../../assets/photo-BG.jpg")}
           style={styles.image}
         >
           <StatusBar style="auto" />
@@ -120,7 +120,7 @@ export default function LoginScreen() {
                   style={styles.btn}
                   onPress={keyBoardHide}
                 >
-                  <Text style={styles.btnTitle}>Зарегистрироваться</Text>
+                  <Text style={styles.btnTitle}>Войти</Text>
                 </TouchableOpacity>
                 <View
                   style={{
@@ -129,7 +129,9 @@ export default function LoginScreen() {
                     alignItems: "center",
                   }}
                 >
-                  <Text style={styles.btnOnLogin}>Уже есть аккаунт? Войти</Text>
+                  <Text style={styles.btnOnLogin}>
+                    Нет аккаунта? Зарегистрироваться
+                  </Text>
                 </View>
               </View>
             </View>

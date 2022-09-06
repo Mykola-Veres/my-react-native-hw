@@ -18,6 +18,7 @@ export default function RegistrationScreen() {
   const initialState = {
     email: "",
     password: "",
+    login: "",
   };
 
   const [showKeyboard, setShowKeyboard] = useState(false);
@@ -79,16 +80,15 @@ export default function RegistrationScreen() {
                       backgroundColor: activeStyle ? "#FFFFFF" : "#E8E8E8",
                     }}
                     textAlign="center"
-                    value={state.email}
+                    value={state.login}
                     placeholder="Логин"
                     placeholderTextColor="#BDBDBD"
-                    keyboardType="numeric"
                     onFocus={() => {
                       setShowKeyboard(true);
                       setActiveStyle(true);
                     }}
                     onChangeText={(value) =>
-                      setState((prevState) => ({ ...prevState, email: value }))
+                      setState((prevState) => ({ ...prevState, login: value }))
                     }
                     onBlur={() => setActiveStyle(false)}
                   />
@@ -104,7 +104,6 @@ export default function RegistrationScreen() {
                     value={state.email}
                     placeholder="Адрес электронной почты"
                     placeholderTextColor="#BDBDBD"
-                    keyboardType="numeric"
                     onFocus={() => {
                       setShowKeyboard(true);
                     }}

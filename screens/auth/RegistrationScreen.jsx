@@ -14,7 +14,7 @@ import {
   Dimensions,
 } from "react-native";
 
-export default function RegistrationScreen() {
+export default function RegistrationScreen({ navigation }) {
   const initialState = {
     email: "",
     password: "",
@@ -44,6 +44,8 @@ export default function RegistrationScreen() {
     Keyboard.dismiss();
     console.log("state:", state);
     setState(initialState);
+    // Create temp
+    navigation.navigate("Posts");
   };
 
   return (
@@ -143,15 +145,19 @@ export default function RegistrationScreen() {
                 >
                   <Text style={styles.btnTitle}>Зарегистрироваться</Text>
                 </TouchableOpacity>
-                <View
+                <TouchableOpacity
                   style={{
                     marginTop: 16,
                     justifyContent: "center",
                     alignItems: "center",
                   }}
+                  activeOpacity={0.7}
+                  onPress={() => {
+                    navigation.navigate("Login");
+                  }}
                 >
                   <Text style={styles.btnOnLogin}>Уже есть аккаунт? Войти</Text>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </KeyboardAvoidingView>

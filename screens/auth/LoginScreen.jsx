@@ -14,7 +14,7 @@ import {
   Dimensions,
 } from "react-native";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const initialState = {
     email: "",
     password: "",
@@ -122,17 +122,22 @@ export default function LoginScreen() {
                 >
                   <Text style={styles.btnTitle}>Войти</Text>
                 </TouchableOpacity>
-                <View
+
+                <TouchableOpacity
                   style={{
                     marginTop: 16,
                     justifyContent: "center",
                     alignItems: "center",
                   }}
+                  activeOpacity={0.7}
+                  onPress={() => {
+                    navigation.navigate("Registration");
+                  }}
                 >
                   <Text style={styles.btnOnLogin}>
                     Нет аккаунта? Зарегистрироваться
                   </Text>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </KeyboardAvoidingView>

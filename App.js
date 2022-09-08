@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import {} from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
-import RegistrationScreen from "./screens/auth/RegistrationScreen";
-import LoginScreen from "./screens/auth/LoginScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { useRoute } from "./router";
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
+  const routing = useRoute({});
 
   const loadAppFonts = async () => {
     await Font.loadAsync({
@@ -25,10 +26,5 @@ export default function App() {
     );
   }
 
-  return (
-    <>
-      <RegistrationScreen></RegistrationScreen>
-      {/* <LoginScreen></LoginScreen> */}
-    </>
-  );
+  return <NavigationContainer>{routing}</NavigationContainer>;
 }

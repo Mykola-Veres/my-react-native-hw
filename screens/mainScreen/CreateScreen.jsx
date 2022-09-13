@@ -7,6 +7,7 @@ const CreateScreen = ({ navigation }) => {
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [type, setType] = useState(CameraType.back);
   const [photo, setPhoto] = useState(null);
+  const [location, setLocation] = useState(null);
   console.log("camera", camera);
 
   if (!permission) {
@@ -29,12 +30,26 @@ const CreateScreen = ({ navigation }) => {
     const photo = await camera.takePictureAsync();
     console.log("photo", photo);
     setPhoto(photo.uri);
+    let location = await Location.getCurrentPositionAsync({});
+    setLocation(location);
+    console.log("location", location.coords.latitude);
+    console.log("location", location.coords.longitude);
   }
 
   const sendPhoto = () => {
     console.log("navigation", navigation);
     navigation.navigate("Posts", { photo });
   };
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+    })();
+  }, []);
 
   return (
     <View style={styles.conreiner}>

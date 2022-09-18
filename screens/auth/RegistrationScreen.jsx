@@ -13,8 +13,11 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
 } from "react-native";
+import { useDispatch } from "react-redux";
 
 export default function RegistrationScreen({ navigation }) {
+  const dispatch = useDispatch();
+
   const initialState = {
     email: "",
     password: "",

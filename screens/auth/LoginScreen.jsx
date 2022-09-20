@@ -14,11 +14,16 @@ import {
   Dimensions,
 } from "react-native";
 
+import { authSignInUser } from "../../redux/auth/authOperation";
+import { useDispatch } from "react-redux";
+
 export default function LoginScreen({ navigation }) {
   const initialState = {
     email: "",
     password: "",
   };
+
+  const dispatch = useDispatch();
 
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
@@ -42,6 +47,7 @@ export default function LoginScreen({ navigation }) {
     setShowKeyboard(false);
     Keyboard.dismiss();
     console.log("state:", state);
+    dispatch(authSignInUser(state));
     setState(initialState);
   };
 

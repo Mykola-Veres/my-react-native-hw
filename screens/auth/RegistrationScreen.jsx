@@ -14,6 +14,7 @@ import {
   Dimensions,
 } from "react-native";
 import { useDispatch } from "react-redux";
+import { authSignUpUser } from "../../redux/auth/authOperation";
 
 export default function RegistrationScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -46,9 +47,11 @@ export default function RegistrationScreen({ navigation }) {
     setShowKeyboard(false);
     Keyboard.dismiss();
     console.log("state:", state);
+
+    dispatch(authSignUpUser(state));
     setState(initialState);
     // Create temp
-    navigation.navigate("Posts");
+    // navigation.navigate("Posts");
   };
 
   return (
